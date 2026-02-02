@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+using namespace std;
 
 #include "Menu.hpp"
 #include "Simulation.hpp"
@@ -20,16 +21,16 @@ int main() {
 
     while (running) {
         choice = menu.printmenu();
-        if (std::cin.fail() || choice < 0 || choice > 9) {
-            std::cout << "\n !!!Invalid choice. Please try again!!!\n";
+        if (cin.fail() || choice < 0 || choice > 9) {
+            cout << "\n !!!Invalid choice. Please try again!!!\n";
             // Clear the error flag
-            std::cin.clear();
+            cin.clear();
             // Ignore the invalid input in the buffer
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
         else if (choice == 0){
-            std::cout << "Exiting the program. Goodbye!\n";
+            cout << "Exiting the program. Goodbye!\n";
             running = false;
             break;
         }

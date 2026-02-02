@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+using namespace std;
 
 #include "Menu.hpp"
 #include "Simulation.hpp"
@@ -21,12 +22,12 @@ public:
     //setters methods
     void setWater(int w) { water = w; }
     void setBattery(int b) { battery = b; }
-    void setMode(const std::string& m) { mode = m; }
+    void setMode(const string& m) { mode = m; }
 
 private:
    int water;
    int battery;
-   std::string mode;
+   string mode;
 };
 
 #endif // ROBOT_HPP

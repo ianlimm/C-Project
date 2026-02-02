@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-
+using namespace std;
 #include "Menu.hpp"
 #include "Simulation.hpp"
 #include "Report.hpp"
@@ -14,16 +14,16 @@ public:
     Map () : mapname("NIL"), startingPos("NIL") {}    
 
     //getters methods
-    std::string getMapName() const { return mapname; }  
-    std::string getStartingPos() const { return startingPos; }
+    string getMapName() const { return mapname; }  
+    string getStartingPos() const { return startingPos; }
 
     //setters methods
-    void setMapName(const std::string& name) { mapname = name; }
-    void setStartingPos(const std::string& pos) { startingPos = pos; }
+    void setMapName(const string& name) { mapname = name; }
+    void setStartingPos(const string& pos) { startingPos = pos; }
 
 private:
-    std::string mapname; // Name of the map
-    std::string startingPos;    // starting position of the robot
+    string mapname; // Name of the map
+    string startingPos;    // starting position of the robot
     int currentPosX;    // Current X position of the robot
     int currentPosY;    // Current Y position of the robot
 };
