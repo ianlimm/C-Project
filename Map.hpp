@@ -48,15 +48,86 @@ public:
     void generatemap() {
         cout << "Enter the map name: ";
         cin >> mapname; // Set the current map filename  // Update the map filename
-<<<<<<< HEAD
         cout << "Numbers of Rows (Excluding Borders): ";
         cin >> maprows;
         cout << "Numbers of Columns (Excluding Borders): "; 
         cin >> mapcols;
-=======
-        cout << "Loading map: " << mapname << "\n";
+        cout << "Number of Obstacles: ";
+        cin >> totobstacles;
+        cout << "Number of Dirt Patches: ";
+        cin >> totdirt;
+        cout << "Number of Stains: ";
+        cin >> totstains;
 
->>>>>>> f953af7b11ee1c72fac556360f4bd5cc8a8b7485
+        if (maprows < 1) maprows = 1;
+        if (mapcols < 1) mapcols = 1;
+
+        int totalRows = maprows + 2;
+        int totalCols = mapcols + 2;
+        int interiorCells = maprows * mapcols;
+
+        // Clamp counts to fit
+        if (totdirt  < 0) totdirt  = 0;
+        if (totstains < 0) totstains = 0;
+        if (totobstacles  < 0) totobstacles  = 0;
+
+        int totalItems = totdirt + totstains + totobstacles;
+        if (totalItems > interiorCells) {
+            int remaining = interiorCells;
+
+            totobstacles = min(totobstacles, remaining);
+            remaining -= totobstacles;
+
+            totstains = min(totstains, remaining);
+            remaining -= totstains;
+
+            totdirt = min(totdirt, remaining);
+        }
+
+        // Create empty grid ('.' = empty)
+        vector<vector<char>> gridmap(totalRows, vector<char>(totalCols, '.'));
+
+        // Borders '#'
+        for (int r = 0; r < totalRows; r++) {
+            gridmap[r][0] = '#';
+            gridmap[r][totalCols - 1] = '#';
+        }
+        for (int c = 0; c < totalCols; c++) {
+            gridmap[0][c] = '#';
+            gridmap[totalRows - 1][c] = '#';
+        }
+
+        // List all interior cells
+        vector<pair<int,int>> cells;
+        cells.reserve(interiorCells);
+        for (int r = 1; r <= maprows; r++) {
+            for (int c = 1; c <= mapcols; c++) {
+                cells.push_back({r, c});
+            }
+        }
+
+        // Shuffle and place items
+        random_device rd;
+        mt19937 rng(rd());
+        shuffle(cells.begin(), cells.end(), rng);
+
+        int idx = 0;
+
+        for (int i = 0; i < totobstacles; i++, idx++)
+            gridmap[cells[idx].first][cells[idx].second] = 'O';
+
+        for (int i = 0; i < totstains; i++, idx++)
+            gridmap[cells[idx].first][cells[idx].second] = '@';
+
+        for (int i = 0; i < totdirt; i++, idx++)
+            gridmap[cells[idx].first][cells[idx].second] = '!';
+
+        for (int i = 0; i < totalRows; i++) {
+            for (int j = 0; j < totalCols; j++) {
+                cout << gridmap[i][j];
+        }
+        cout << endl;
+      }
         
     }
 
@@ -93,6 +164,9 @@ public:
     int currentPosY;    // Current Y position of the robot
     int maprows;          // Number of rows in the map
     int mapcols;          // Number of columns in the map
+    int totdirt;         // Total dirt in the map
+    int totstains;       // Total stains in the map
+    int totobstacles;    // Total obstacles in the map
 
 
     bool fileExists(const string& path) {
