@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <filesystem>
 using namespace std;
 
@@ -13,6 +14,9 @@ using namespace std;
 
 class Map {
 public:
+    const int ROWS = 20;
+    const int COLS = 20;
+
     Map () : mapname("NIL"), startingPos("NIL") {}    
 
     //getters methods
@@ -42,11 +46,37 @@ public:
         cout << "Enter the filename to load the map: ";
         cin >> mapname; // Set the current map filename  // Update the map filename
         cout << "Loading map: " << mapname << "\n";
+
         
     }
 
+    void printMap() {
+        cout << "Loading map: " << mapname << "\n";
+        ifstream file(mapname);
+        
+        //generate array
+        char** grid = new char*[ROWS];
+     for (int i = 0; i < ROWS; i++) {
+        grid[i] = new char[COLS];
+        for (int j = 0; j < COLS; j++) {
+            file >> grid[i][j];
+        }
+     }
+        file.close();
+    
+     // Display
+     cout << "\n20x20 Environment:" << endl;
+     for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            cout << grid[i][j];
+        }
+        cout << endl;
+      }
+    }
+    
 
-private:
+
+ private:
     string mapname; // Name of the map
     string startingPos;  // starting position of the robot
     int currentPosX;    // Current X position of the robot
@@ -59,12 +89,6 @@ private:
     }   
     
     void loadarrayfromfile() {
-        
-        
-    }
-    
-    void printmap() {
-        
         
     }
     
