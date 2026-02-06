@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <filesystem>
 #include <vector>
 #include <random>
@@ -16,6 +17,9 @@ using namespace std;
 
 class Map {
 public:
+    const int ROWS = 20;
+    const int COLS = 20;
+
     Map () : mapname("NIL"), startingPos("NIL") {}    
 
     //getters methods
@@ -44,15 +48,45 @@ public:
     void generatemap() {
         cout << "Enter the map name: ";
         cin >> mapname; // Set the current map filename  // Update the map filename
+<<<<<<< HEAD
         cout << "Numbers of Rows (Excluding Borders): ";
         cin >> maprows;
         cout << "Numbers of Columns (Excluding Borders): "; 
         cin >> mapcols;
+=======
+        cout << "Loading map: " << mapname << "\n";
+
+>>>>>>> f953af7b11ee1c72fac556360f4bd5cc8a8b7485
         
     }
 
+    void printMap() {
+        cout << "Loading map: " << mapname << "\n";
+        ifstream file(mapname);
+        
+        //generate array
+        char** grid = new char*[ROWS];
+     for (int i = 0; i < ROWS; i++) {
+        grid[i] = new char[COLS];
+        for (int j = 0; j < COLS; j++) {
+            file >> grid[i][j];
+        }
+     }
+        file.close();
+    
+     // Display
+     cout << "\n20x20 Environment:" << endl;
+     for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            cout << grid[i][j];
+        }
+        cout << endl;
+      }
+    }
+    
 
-private:
+
+ private:
     string mapname; // Name of the map
     string startingPos;  // starting position of the robot
     int currentPosX;    // Current X position of the robot
@@ -67,12 +101,6 @@ private:
     }   
     
     void loadarrayfromfile() {
-        
-        
-    }
-    
-    void printmap() {
-        
         
     }
     
