@@ -78,7 +78,7 @@ public:
             case 3: chooseRobotMode();
             break;
 
-            case 4: map.printMap(); 
+            case 4: ; 
             break;
 
             case 5: ; 

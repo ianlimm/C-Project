@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
+#include <vector>
+#include <random>
+#include <algorithm>
 using namespace std;
 
 #include "Menu.hpp"
@@ -39,9 +42,12 @@ public:
     }
 
     void generatemap() {
-        cout << "Enter the filename to load the map: ";
+        cout << "Enter the map name: ";
         cin >> mapname; // Set the current map filename  // Update the map filename
-        cout << "Loading map: " << mapname << "\n";
+        cout << "Numbers of Rows (Excluding Borders): ";
+        cin >> maprows;
+        cout << "Numbers of Columns (Excluding Borders): "; 
+        cin >> mapcols;
         
     }
 
@@ -51,6 +57,8 @@ private:
     string startingPos;  // starting position of the robot
     int currentPosX;    // Current X position of the robot
     int currentPosY;    // Current Y position of the robot
+    int maprows;          // Number of rows in the map
+    int mapcols;          // Number of columns in the map
 
 
     bool fileExists(const string& path) {
