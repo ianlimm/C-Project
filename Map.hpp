@@ -45,9 +45,6 @@ public:
         
     }
 
-    void printMap() const {
-        
-    }
 
 private:
     string mapname; // Name of the map
@@ -60,7 +57,16 @@ private:
     namespace fs = filesystem;
     return fs::exists(path) && fs::is_regular_file(path);
     }   
-
+    
+    void loadarrayfromfile() {
+        
+        
+    }
+    
+    void printmap() {
+        
+        
+    }
     
 };
 
