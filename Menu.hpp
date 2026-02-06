@@ -32,7 +32,7 @@ public:
             cout << "Starting position: " << map.getStartingPos() << "\n";
             cout << "Robot Mode: " << robot.getMode() << "\n\n";
             cout << "Battery remaining: " << robot.getBattery() << "%\n";
-            cout << "Water remaining: " << robot.getWater() << "%\n";
+            cout << "Water remaining: " << robot.getWater() << "%\n\n";
             }
         
             int maxchoice;
@@ -69,7 +69,7 @@ public:
 
     void handleChoice(int choice) {
         switch (choice) {
-            case 1: loadMap(); 
+            case 1: loadorgenerate(); 
             break;
 
             case 2: chooseStartingPoint();  
@@ -78,7 +78,7 @@ public:
             case 3: chooseRobotMode();
             break;
 
-            case 4: ; 
+            case 4: map.printMap(); 
             break;
 
             case 5: ; 
@@ -101,12 +101,16 @@ private:
     Map map;
     Robot robot;
 
-    void loadMap() {
-        string filename;
-        cout << "Enter the filename to load the map: ";
-        cin >> filename; // Set the current map filename
-        map.setMapName(filename);  // Update the map filename
-        std::cout << "Loading map: " << filename << "\n";
+    void loadorgenerate() {
+        int option;
+        cout << "1) Load Map \n2) Generate Map\n";
+        cout << "\nEnter your choice: ";
+        cin >> option;
+        switch (option) {
+            case 1: map.loadmap(); break;
+            case 2: map.generatemap(); break;
+            default: cout << "Invalid option. Returning to main menu.\n"; break;
+        }
     }
 
     void chooseRobotMode() {

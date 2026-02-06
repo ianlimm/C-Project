@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <filesystem>
 using namespace std;
 
 #include "Menu.hpp"
@@ -22,11 +23,45 @@ public:
     void setMapName(const string& name) { mapname = name; }
     void setStartingPos(const string& pos) { startingPos = pos; }
 
+    void loadmap() {
+        cout << "Enter the filename to load the map: ";
+        cin >> mapname; // Set the current map filename  // Update the map filename
+        cout << "Finding " << mapname << " ... ... ...\n";
+        if (fileExists(mapname)) {
+            cout << "Map file found successfully!\n";
+            
+        } else {
+            cout << "Error: Map file not found. Please check the filename and try again.\n";
+            mapname = "NIL";
+            return;
+        }
+        cout << "Loading map: " << mapname << "\n";
+    }
+
+    void generatemap() {
+        cout << "Enter the filename to load the map: ";
+        cin >> mapname; // Set the current map filename  // Update the map filename
+        cout << "Loading map: " << mapname << "\n";
+        
+    }
+
+    void printMap() const {
+        
+    }
+
 private:
     string mapname; // Name of the map
-    string startingPos;    // starting position of the robot
+    string startingPos;  // starting position of the robot
     int currentPosX;    // Current X position of the robot
     int currentPosY;    // Current Y position of the robot
+
+
+    bool fileExists(const string& path) {
+    namespace fs = filesystem;
+    return fs::exists(path) && fs::is_regular_file(path);
+    }   
+
+    
 };
 
 #endif // MAP_HPP
