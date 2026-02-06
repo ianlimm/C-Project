@@ -38,22 +38,25 @@ public:
             int maxchoice;
         if (map.getMapName() == "NIL") {
             cout << "\n1) Load Map (.txt)\n";
-            maxchoice = 1;
+            cout << "2) Generate Map\n";
+            maxchoice = 2;
         } else if (map.getStartingPos() == "NIL") {
             cout << "\n1) Load New Map (.txt)\n";
-            cout << "2) Choose Starting Point\n";
-            maxchoice = 2;
+            cout << "2) Generate Map (.txt)\n";
+            cout << "3) Choose Starting Point\n";
+            maxchoice = 3;
         } else {
-            cout << "1) Load New Map (.txt)\n";
-            cout << "2) Choose Starting Point\n";
-            cout << "3) Choose Robot Mode\n";
-            cout << "4) Show Map\n";
-            cout << "5) Auto Run Simulation\n";
-            cout << "6) Step Through Simulation\n";
-            cout << "7) Restart Simulation\n";
-            cout << "8) Show Cleaning Report\n";
-            cout << "9) Save Cleaning Report (.txt)\n\n";
-            maxchoice = 9;
+            cout << "1) Load Map (.txt)\n";
+            cout << "2) Generate Map\n";
+            cout << "3) Choose Starting Point\n";
+            cout << "4) Choose Robot Mode\n";
+            cout << "5) Show Map\n";
+            cout << "6) Auto Run Simulation\n";
+            cout << "7) Step Through Simulation\n";
+            cout << "8) Restart Simulation\n";
+            cout << "9) Show Cleaning Report\n";
+            cout << "10) Save Cleaning Report (.txt)\n\n";
+            maxchoice = 10;
         }   
             
 
@@ -69,48 +72,51 @@ public:
 
     void handleChoice(int choice) {
         switch (choice) {
-            case 1: loadorgenerate(); 
+            case 1: load(); 
             break;
 
-            case 2: chooseStartingPoint();  
+            case 2: generate();  
             break;
 
-            case 3: chooseRobotMode();
+            case 3: chooseStartingPoint();  
             break;
 
-            case 4: map.printMap();
+            case 4: map.printMap(); 
             break;
 
-            case 5: ; 
+            case 5: map.printMap(); 
             break;
 
-            case 6:; 
+            case 6: ; 
+            break;
+
+            case 7:; 
             break;
             
-            case 7: restartSimulation(); 
-            break;
-
-            case 8: ; 
+            case 8: restartSimulation(); 
             break;
 
             case 9: ; 
             break;
+
+            case 10: ; 
+            break;
+
+            
         }
     }
 private:
     Map map;
     Robot robot;
 
-    void loadorgenerate() {
-        int option;
-        cout << "1) Load Map \n2) Generate Map\n";
-        cout << "\nEnter your choice: ";
-        cin >> option;
-        switch (option) {
-            case 1: map.loadmap(); break;
-            case 2: map.generatemap(); break;
-            default: cout << "Invalid option. Returning to main menu.\n"; break;
-        }
+    void load() {
+        map.loadmap();
+
+    }
+
+    void generate() {
+        map.generatemap();
+           
     }
 
     void chooseRobotMode() {
