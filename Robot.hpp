@@ -17,7 +17,7 @@ public:
     //getters methods
     int getWater() const { return water; }
     int getBattery() const { return battery; }
-    std::string getMode() const { return mode; }
+    string getMode() const { return mode; }
 
     //setters methods
     void setWater(int w) { water = w; }
