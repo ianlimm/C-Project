@@ -87,7 +87,7 @@ public:
             case 6:; 
             break;
             
-            case 7: ; 
+            case 7: restartSimulation(); 
             break;
 
             case 8: ; 
@@ -136,6 +136,14 @@ private:
             default: map.setStartingPos("(none)"); break;  // Default
         }
         cout << "You selected starting point: " << map.getStartingPos() << "\n";
+    }
+
+    void restartSimulation() {
+        map.setMapName("NIL");
+        map.setStartingPos("NIL");
+        robot.setBattery(100);
+        robot.setWater(100);
+        cout << "Simulation restarted. Battery and water levels reset to 100%. Please Load in a new map\n";
     }
 };
 
