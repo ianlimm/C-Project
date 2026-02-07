@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <filesystem>
 #include <vector>
 #include <random>
@@ -17,9 +18,9 @@ using namespace std;
 
 class Map {
 public:
-    const int ROWS = 20;
-    const int COLS = 20;
-
+    string line;
+    int rows = 0;
+    int maxCols = 0;
     Map () : mapname("NIL"), startingPos("NIL") {}    
 
     //getters methods
@@ -130,29 +131,71 @@ public:
       }
         
     }
+    void readMap() {
+     
+    }
 
     void printMap() {
-        cout << "Loading map: " << mapname << "\n";
-        ifstream file(mapname);
+
+    ifstream inputFile(mapname);
+    vector<vector<string>> data;
+    string line;
+    int rows = 0;
+    int maxCols = 0;
+    
+    // Read file line by line
+    while (getline(inputFile, line)) {
+        vector<string> row;
+        stringstream ss(line);
+        string value;
+        int colCount = 0;
         
-        //generate array
-        char** grid = new char*[ROWS];
-     for (int i = 0; i < ROWS; i++) {
-        grid[i] = new char[COLS];
-        for (int j = 0; j < COLS; j++) {
-            file >> grid[i][j];
+        // Try space as delimiter first
+        while (getline(ss, value, ' ')) {
+            // Skip empty strings from multiple spaces
+            if (!value.empty()) {
+                row.push_back(value);
+                colCount++;
+            }
+        }
+        
+        // If no columns found, try tab delimiter
+        if (colCount == 0) {
+            stringstream ss2(line);
+            while (getline(ss2, value, '\t')) {
+                if (!value.empty()) {
+                    row.push_back(value);
+                    colCount++;
+                }
+            }
+        }
+        
+        // If still no columns, add the whole line
+        if (colCount == 0 && !line.empty()) {
+            row.push_back(line);
+            colCount = 1;
+        }
+        
+        if (colCount > 0) {
+            data.push_back(row);
+            rows++;
+            if (colCount > maxCols) {
+                maxCols = colCount;
+            }
         }
      }
-        file.close();
     
-     // Display
-     cout << "\n20x20 Environment:" << endl;
-     for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            cout << grid[i][j];
+     inputFile.close();
+    
+    
+     // Display only the array contents (no row numbers)
+     cout << endl;
+     for (const auto& row : data) {
+        for (const auto& cell : row) {
+            cout << cell << " ";
         }
         cout << endl;
-      }
+     }
     }
     
 
