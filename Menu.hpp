@@ -13,13 +13,13 @@ using namespace std;
 
 class Menu {
 public:
-
     int choice;
 
     int printmenu() {
         cout << "\n==============================\n";
         cout << "   Self-Cleaning Robot Sim\n";
         cout << "==============================\n\n";
+        
         if (map.getMapName() == "NIL") {
             cout << "Current map: (none)\n";  // No map loaded
         } 
@@ -33,21 +33,23 @@ public:
             cout << "Robot Mode: " << robot.getMode() << "\n\n";
             cout << "Battery remaining: " << robot.getBattery() << "%\n";
             cout << "Water remaining: " << robot.getWater() << "%\n\n";
-            }
+        }
         
-            int maxchoice;
+        int maxchoice;
         if (map.getMapName() == "NIL") {
-            cout << "\n1) Load New Map (.txt)\n";
-            cout << "2) Generate New Map\n";
+            cout << "\n1) Load Map (.txt)\n";
+            cout << "2) Generate Map\n";
             maxchoice = 2;
-        } else if (map.getStartingPos() == "NIL") {
+        } 
+        else if (map.getStartingPos() == "NIL") {
             cout << "\n1) Load New Map (.txt)\n";
-            cout << "2) Generate New Map (.txt)\n";
+            cout << "2) Generate Map (.txt)\n";
             cout << "3) Choose Starting Point\n";
             maxchoice = 3;
-        } else {
-            cout << "1) Load New Map (.txt)\n";
-            cout << "2) Generate New Map\n";
+        } 
+        else {
+            cout << "1) Load Map (.txt)\n";
+            cout << "2) Generate Map\n";
             cout << "3) Choose Starting Point\n";
             cout << "4) Choose Robot Mode\n";
             cout << "5) Show Map\n";
@@ -58,7 +60,6 @@ public:
             cout << "10) Save Cleaning Report (.txt)\n\n";
             maxchoice = 10;
         }   
-            
 
         cout << "0) Exit\n";
         cout << "\nEnter your choice: ";
@@ -72,70 +73,125 @@ public:
 
     void handleChoice(int choice) {
         switch (choice) {
-            case 1: map.loadmap();
-            break;
+            case 1: 
+                load(); 
+                break;
 
-            case 2: map.generatemap(); 
-            break;
+            case 2: 
+                generate();  
+                break;
 
-            case 3: chooseStartingPoint();  
-            break;
+            case 3: 
+                chooseStartingPoint();  
+                break;
 
-            case 4: ; 
-            break;
+            case 4: 
+                chooseRobotMode();  // Fixed: Now calls the correct function name
+                break;
 
-            case 5: map.printMap(); 
-            break;
+            case 5: 
+                map.printMap(); 
+                break;
 
-            case 6: ; 
-            break;
+            case 6: 
+                // Auto Run Simulation - To be implemented
+                cout << "Auto Run Simulation - Coming soon!\n";
+                break;
 
-            case 7:; 
-            break;
+            case 7:
+                // Step Through Simulation - To be implemented
+                cout << "Step Through Simulation - Coming soon!\n";
+                break;
             
-            case 8: restartSimulation(); 
-            break;
+            case 8: 
+                restartSimulation(); 
+                break;
 
-            case 9: ; 
-            break;
+            case 9: 
+                // Show Cleaning Report - To be implemented
+                cout << "Show Cleaning Report - Coming soon!\n";
+                break;
 
-            case 10: ; 
-            break;
-
-            
+            case 10: 
+                // Save Cleaning Report - To be implemented
+                cout << "Save Cleaning Report - Coming soon!\n";
+                break;
         }
     }
+
 private:
     Map map;
     Robot robot;
 
-    void chooseRobotMode() {
+    void load() {
+        map.loadmap();
+    }
+
+    void generate() {
+        map.generatemap();
+    }
+
+    void chooseRobotMode() {  // Single, consolidated function
         int mode;
-        cout << "Choose Robot Mode: \n1) Explore\n2) Vacuum\n3) Mop\n";
+        cout << "\nChoose Robot Mode: \n";
+        cout << "1) Explore\n";
+        cout << "2) Vacuum\n";
+        cout << "3) Mop\n";
         cout << "\nEnter your choice: ";
         cin >> mode;
+        
         switch (mode) {
-            case 1: robot.setMode("Explore"); break;
-            case 2: robot.setMode("Vacuum"); break;
-            case 3: robot.setMode("Mop"); break;
-            default: robot.setMode("Explore"); break; // Default to "Explore"
+            case 1: 
+                robot.setMode("Explore"); 
+                cout << "You selected mode: Explore\n";
+                break;
+            case 2: 
+                robot.setMode("Vacuum"); 
+                cout << "You selected mode: Vacuum\n";
+                break;
+            case 3: 
+                robot.setMode("Mop"); 
+                cout << "You selected mode: Mop\n";
+                break;
+            default: 
+                robot.setMode("Explore"); 
+                cout << "Invalid choice. Defaulting to Explore mode.\n";
+                break;
         }
-        cout << "You selected mode: " << robot.getMode() << "\n";
     }
 
     void chooseStartingPoint() {
         int startPoint;
-        cout << "Choose Starting Point: \n1) Top Left\n2) Top Right\n3) Bottom Left\n4) Bottom Right\n";
+        cout << "\nChoose Starting Point: \n";
+        cout << "1) Top Left\n";
+        cout << "2) Top Right\n";
+        cout << "3) Bottom Left\n";
+        cout << "4) Bottom Right\n";
         cout << "\nEnter your choice: ";
         cin >> startPoint;
+        
         switch (startPoint) {
-            case 1: map.setStartingPos("Top Left"); break;
-            case 2: map.setStartingPos("Top Right"); break;
-            case 3: map.setStartingPos("Bottom Left"); break;
-            case 4: map.setStartingPos("Bottom Right"); break;
-            default: map.setStartingPos("NIL"); break;  // Default
+            case 1: 
+                map.setStartingPos("Top Left"); 
+                cout << "You selected starting point: Top Left\n";
+                break;
+            case 2: 
+                map.setStartingPos("Top Right"); 
+                cout << "You selected starting point: Top Right\n";
+                break;
+            case 3: 
+                map.setStartingPos("Bottom Left"); 
+                cout << "You selected starting point: Bottom Left\n";
+                break;
+            case 4: 
+                map.setStartingPos("Bottom Right"); 
+                cout << "You selected starting point: Bottom Right\n";
+                break;
+            default: 
+                map.setStartingPos("(none)"); 
+                cout << "Invalid choice. No starting point selected.\n";
+                break;
         }
-        cout << "You selected starting point: " << map.getStartingPos() << "\n";
     }
 
     void restartSimulation() {
@@ -143,7 +199,10 @@ private:
         map.setStartingPos("NIL");
         robot.setBattery(100);
         robot.setWater(100);
-        cout << "Simulation restarted. Battery and water levels reset to 100%. Please Load in a new map\n";
+        robot.setMode("Explore");  // Reset mode to default
+        cout << "\nSimulation restarted.\n";
+        cout << "Battery and water levels reset to 100%.\n";
+        cout << "Please load a new map.\n";
     }
 };
 
