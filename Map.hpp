@@ -138,7 +138,7 @@ public:
     void printMap() {
 
     ifstream inputFile(mapname);
-    vector<vector<string>> data;
+    vector<vector<char>> data;
     string line;
     int rows = 0;
     int maxCols = 0;
@@ -186,7 +186,6 @@ public:
      }
     
      inputFile.close();
-    
     
      // Display only the array contents (no row numbers)
      cout << endl;
