@@ -72,10 +72,10 @@ public:
 
     void handleChoice(int choice) {
         switch (choice) {
-            case 1: load(); 
+            case 1: map.loadmap();
             break;
 
-            case 2: generate();  
+            case 2: map.generatemap(); 
             break;
 
             case 3: chooseStartingPoint();  
@@ -108,16 +108,6 @@ public:
 private:
     Map map;
     Robot robot;
-
-    void load() {
-        map.loadmap();
-
-    }
-
-    void generate() {
-        map.generatemap();
-           
-    }
 
     void chooseRobotMode() {
         int mode;
