@@ -81,7 +81,7 @@ public:
             case 3: chooseStartingPoint();  
             break;
 
-            case 4: ; 
+            case 4: ;
             break;
 
             case 5: map.printMap(); 
@@ -96,7 +96,7 @@ public:
             case 8: restartSimulation(); 
             break;
 
-            case 9: ; 
+            case 9: report.showFinalReport(); 
             break;
 
             case 10: ; 
@@ -108,6 +108,7 @@ public:
 private:
     Map map;
     Robot robot;
+    Report report;
 
     void chooseRobotMode() {
         int mode;
