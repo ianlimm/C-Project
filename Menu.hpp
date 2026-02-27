@@ -133,7 +133,7 @@ private:
             case 2: map.setStartingPos("Top Right"); break;
             case 3: map.setStartingPos("Bottom Left"); break;
             case 4: map.setStartingPos("Bottom Right"); break;
-            default: map.setStartingPos("(none)"); break;  // Default
+            default: map.setStartingPos("NIL"); break;  // Default
         }
         cout << "You selected starting point: " << map.getStartingPos() << "\n";
     }
