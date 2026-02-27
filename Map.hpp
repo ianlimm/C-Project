@@ -48,15 +48,10 @@ public:
     void generatemap() {
         cout << "Enter the map name: ";
         cin >> mapname; // Set the current map filename  // Update the map filename
-<<<<<<< HEAD
         cout << "Numbers of Rows (Excluding Borders): ";
         cin >> maprows;
         cout << "Numbers of Columns (Excluding Borders): "; 
         cin >> mapcols;
-=======
-        cout << "Loading map: " << mapname << "\n";
-
->>>>>>> f953af7b11ee1c72fac556360f4bd5cc8a8b7485
         
     }
 
