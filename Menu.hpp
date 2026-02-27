@@ -37,17 +37,17 @@ public:
         
             int maxchoice;
         if (map.getMapName() == "NIL") {
-            cout << "\n1) Load Map (.txt)\n";
-            cout << "2) Generate Map\n";
+            cout << "\n1) Load New Map (.txt)\n";
+            cout << "2) Generate New Map\n";
             maxchoice = 2;
         } else if (map.getStartingPos() == "NIL") {
             cout << "\n1) Load New Map (.txt)\n";
-            cout << "2) Generate Map (.txt)\n";
+            cout << "2) Generate New Map (.txt)\n";
             cout << "3) Choose Starting Point\n";
             maxchoice = 3;
         } else {
-            cout << "1) Load Map (.txt)\n";
-            cout << "2) Generate Map\n";
+            cout << "1) Load New Map (.txt)\n";
+            cout << "2) Generate New Map\n";
             cout << "3) Choose Starting Point\n";
             cout << "4) Choose Robot Mode\n";
             cout << "5) Show Map\n";

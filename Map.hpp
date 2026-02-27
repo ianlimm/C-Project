@@ -17,8 +17,6 @@ using namespace std;
 
 class Map {
 public:
-    const int ROWS = 20;
-    const int COLS = 20;
 
     Map () : mapname("NIL"), startingPos("NIL") {}    
 
@@ -36,83 +34,75 @@ public:
         cout << "Finding " << mapname << " ... ... ...\n";
         if (fileExists(mapname)) {
             cout << "Map file found successfully!\n";
+            clearGrid();
+            loadarrayfromfile();
             
         } else {
             cout << "Error: Map file not found. Please check the filename and try again.\n";
             mapname = "NIL";
             return;
         }
-        cout << "Loading map: " << mapname << "\n";
+        
     }
 
     void generatemap() {
+        int inputRows, inputCols;
         cout << "Enter the map name: ";
-        cin >> mapname; // Set the current map filename  // Update the map filename
+        cin >> mapname;
         cout << "Numbers of Rows (Excluding Borders): ";
-        cin >> maprows;
+        cin >> inputRows;
         cout << "Numbers of Columns (Excluding Borders): "; 
-        cin >> mapcols;
-        cout << "Number of Obstacles: ";
-        cin >> totobstacles;
-        cout << "Number of Dirt Patches: ";
-        cin >> totdirt;
-        cout << "Number of Stains: ";
-        cin >> totstains;
+        cin >> inputCols;
+        
+        // Ensure input is valid
+        if (inputRows < 1) inputRows = 1;
+        if (inputCols < 1) inputCols = 1;
 
-        if (maprows < 1) maprows = 1;
-        if (mapcols < 1) mapcols = 1;
+        cout << "Number of Obstacles: "; cin >> totobstacles;
+        cout << "Number of Dirt Patches: "; cin >> totdirt;
+        cout << "Number of Stains: "; cin >> totstains;
 
-        int totalRows = maprows + 2;
-        int totalCols = mapcols + 2;
-        int interiorCells = maprows * mapcols;
+        // Set actual member dimensions including borders
+        maprows = inputRows + 2;
+        mapcols = inputCols + 2;
+        int interiorCells = inputRows * inputCols;
 
-        // Clamp counts to fit
-        if (totdirt  < 0) totdirt  = 0;
-        if (totstains < 0) totstains = 0;
-        if (totobstacles  < 0) totobstacles  = 0;
-
+        // Clamp items to ensure they fit in the interior
         int totalItems = totdirt + totstains + totobstacles;
         if (totalItems > interiorCells) {
-            int remaining = interiorCells;
-
-            totobstacles = min(totobstacles, remaining);
-            remaining -= totobstacles;
-
-            totstains = min(totstains, remaining);
-            remaining -= totstains;
-
-            totdirt = min(totdirt, remaining);
+            totobstacles = min(totobstacles, interiorCells);
+            totstains = min(totstains, interiorCells - totobstacles);
+            totdirt = min(totdirt, interiorCells - totobstacles - totstains);
         }
 
-        // Create empty grid ('.' = empty)
-        vector<vector<char>> gridmap(totalRows, vector<char>(totalCols, '.'));
+        clearGrid();
+        gridmap.assign(maprows, vector<char>(mapcols, '.'));
 
         // Borders '#'
-        for (int r = 0; r < totalRows; r++) {
+        for (int r = 0; r < maprows; r++) {
             gridmap[r][0] = '#';
-            gridmap[r][totalCols - 1] = '#';
+            gridmap[r][mapcols - 1] = '#';
         }
-        for (int c = 0; c < totalCols; c++) {
+        for (int c = 0; c < mapcols; c++) {
             gridmap[0][c] = '#';
-            gridmap[totalRows - 1][c] = '#';
+            gridmap[maprows - 1][c] = '#';
         }
 
-        // List all interior cells
+        // List ONLY interior cells (Avoid index 0 and index maprows-1)
         vector<pair<int,int>> cells;
         cells.reserve(interiorCells);
-        for (int r = 1; r <= maprows; r++) {
-            for (int c = 1; c <= mapcols; c++) {
+        for (int r = 1; r <= inputRows; r++) { // Fixed: Use inputRows, not maprows
+            for (int c = 1; c <= inputCols; c++) { // Fixed: Use inputCols, not mapcols
                 cells.push_back({r, c});
             }
         }
 
-        // Shuffle and place items
+        // Random placement logic
         random_device rd;
         mt19937 rng(rd());
         shuffle(cells.begin(), cells.end(), rng);
 
         int idx = 0;
-
         for (int i = 0; i < totobstacles; i++, idx++)
             gridmap[cells[idx].first][cells[idx].second] = 'O';
 
@@ -121,38 +111,18 @@ public:
 
         for (int i = 0; i < totdirt; i++, idx++)
             gridmap[cells[idx].first][cells[idx].second] = '!';
-
-        for (int i = 0; i < totalRows; i++) {
-            for (int j = 0; j < totalCols; j++) {
-                cout << gridmap[i][j];
-        }
-        cout << endl;
-      }
-        
-    }
+}
 
     void printMap() {
         cout << "Loading map: " << mapname << "\n";
-        ifstream file(mapname);
-        
-        //generate array
-        char** grid = new char*[ROWS];
-     for (int i = 0; i < ROWS; i++) {
-        grid[i] = new char[COLS];
-        for (int j = 0; j < COLS; j++) {
-            file >> grid[i][j];
-        }
-     }
-        file.close();
     
      // Display
-     cout << "\n20x20 Environment:" << endl;
-     for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            cout << grid[i][j];
+        for (int i = 0; i < maprows; i++) {
+            for (int j = 0; j < mapcols; j++) {
+                cout << gridmap[i][j];
+            }
+            cout << endl;
         }
-        cout << endl;
-      }
     }
     
 
@@ -167,14 +137,41 @@ public:
     int totdirt;         // Total dirt in the map
     int totstains;       // Total stains in the map
     int totobstacles;    // Total obstacles in the map
+    vector<vector<char>> gridmap; //Gridmap for Map
 
 
     bool fileExists(const string& path) {
     namespace fs = filesystem;
     return fs::exists(path) && fs::is_regular_file(path);
     }   
+
+    void clearGrid() {
+        gridmap.clear();
+    }
     
     void loadarrayfromfile() {
+        ifstream file(mapname);
+        if (!file) return;
+
+        gridmap.clear(); // Ensure we don't append to old map data
+        string line;
+        while (getline(file, line)) {
+            if (line.empty()) continue;
+            
+            vector<char> row;
+            for (char c : line) {
+                // Skips spaces/newlines to ensure only map characters are stored
+                if (!isspace(c)) {
+                    row.push_back(c);
+                }
+            }
+            if (!row.empty()) gridmap.push_back(row);
+        }
+        file.close();
+
+        // Dynamically update map dimensions based on the file content
+        maprows = gridmap.size();
+        mapcols = gridmap[0].size();
         
     }
     
