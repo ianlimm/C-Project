@@ -53,10 +53,6 @@ public:
         cin >> maprows;
         cout << "Numbers of Columns (Excluding Borders): "; 
         cin >> mapcols;
-<<<<<<< HEAD
-        
-    }
-=======
         cout << "Number of Obstacles: ";
         cin >> totobstacles;
         cout << "Number of Dirt Patches: ";
@@ -66,7 +62,6 @@ public:
 
         if (maprows < 1) maprows = 1;
         if (mapcols < 1) mapcols = 1;
->>>>>>> 6bb94ec8f8581f619ee5f8a7ef09b917eaa8e776
 
         int totalRows = maprows + 2;
         int totalCols = mapcols + 2;
