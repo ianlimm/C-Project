@@ -93,9 +93,9 @@ public:
                 map.printMap(); 
                 break;
 
-            case 6: 
-                // Auto Run Simulation - To be implemented
+            case 6:
                 cout << "Auto Run Simulation - Coming soon!\n";
+                simulation.determineLR(); // Auto Run Simulation - To be implemented
                 break;
 
             case 7:
@@ -122,6 +122,7 @@ public:
 private:
     Map map;
     Robot robot;
+    Simulation simulation;
 
     void load() {
         map.loadmap();

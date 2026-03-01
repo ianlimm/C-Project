@@ -17,6 +17,8 @@ using namespace std;
 
 class Map {
 public:
+    int currentPosX;    // Current X position of the robot
+    int currentPosY;    // Current Y position of the robot
 
     Map () : mapname("NIL"), startingPos("NIL") {}    
 
@@ -143,8 +145,6 @@ public:
  private:
     string mapname; // Name of the map
     string startingPos;  // starting position of the robot
-    int currentPosX;    // Current X position of the robot
-    int currentPosY;    // Current Y position of the robot
     int maprows;          // Number of rows in the map
     int mapcols;          // Number of columns in the map
     int totdirt;         // Total dirt in the map

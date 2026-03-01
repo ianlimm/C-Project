@@ -14,6 +14,9 @@ class Robot {
 public:
     Robot() : water(100), battery(100), mode("Explore") {}
 
+    void moveRight();
+    void moveLeft();
+
     //getters methods
     int getWater() const { return water; }
     int getBattery() const { return battery; }
