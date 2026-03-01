@@ -15,12 +15,12 @@ class Simulation {
 public:
      int determineLR() {
         // Check if left cell is a wall/obstacle
-        if (startingposy > 0 && gridmap[startingposx][startingposy - 1] == '#') {
+        if (startingposy > 0 && gridmap[startingposx][startingposy - 1] == '#' || gridmap[startingposx][startingposy - 1] == 'O') {
             cout << "Left side has a wall/obstacle. Moving right instead.\n";
             return 1;  // Move right
         }
         // Check if right cell is a wall/obstacle  
-        else if (startingposy + 1 < gridmap[0].size() && gridmap[startingposx][startingposy + 1] == '#') {
+        else if (startingposy + 1 < gridmap[0].size() && gridmap[startingposx][startingposy + 1] == '#' || gridmap[startingposx][startingposy + 1] == 'O') {
             cout << "Right side has a wall/obstacle. Moving left instead.\n";
             return -1;  // Move left
         }
