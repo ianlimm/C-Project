@@ -1,36 +1,74 @@
 #ifndef ROBOT_HPP
 #define ROBOT_HPP
 
-#include <iostream>
 #include <string>
+#include "Point.hpp"
+
 using namespace std;
 
-#include "Menu.hpp"
-#include "Simulation.hpp"
-#include "Report.hpp"
-#include "Map.hpp"
+class RobotMode {
+public:
+    virtual int getCost() = 0;
+    virtual string getColor() = 0;
+    virtual string getName() = 0;
+    virtual ~RobotMode() {}
+};
+
+class DefaultMode : public RobotMode {
+public:
+    int getCost() override { return 2; }
+    string getColor() override { return "\033[32m"; }
+    string getName() override { return "default mode"; }
+};
+
+class HighPowerMode : public RobotMode {
+public:
+    int getCost() override { return 3; }
+    string getColor() override { return "\033[31m"; }
+    string getName() override { return "high power mode"; }
+};
+
+class NavigationMode : public RobotMode {
+public:
+    int getCost() override { return 1; }
+    string getColor() override { return "\033[34m"; }
+    string getName() override { return "navigation mode"; }
+};
 
 class Robot {
 public:
-    Robot() : water(100), battery(100), mode("Explore") {}
+    Point pos{0, 0};
+    Point startPos{0, 0};
+    char icon = '^';
+    int energyUsed = 0;
+    int dirtCleaned = 0;
+    RobotMode* mode;
 
-    void moveRight();
-    void moveLeft();
+    Robot() : mode(new DefaultMode()) {}
+    ~Robot() { delete mode; }
 
-    //getters methods
-    int getWater() const { return water; }
-    int getBattery() const { return battery; }
-    string getMode() const { return mode; }
+    void reset(Point start) {
+        pos = start;
+        startPos = start;
+        icon = '^';
+        energyUsed = 0;
+        dirtCleaned = 0;
+        setMode(new DefaultMode());
+    }
 
-    //setters methods
-    void setWater(int w) { water = w; }
-    void setBattery(int b) { battery = b; }
-    void setMode(const string& m) { mode = m; }
+    void setMode(RobotMode* newMode) {
+        if (mode != nullptr) {
+            delete mode;
+        }
+        mode = newMode;
+    }
 
-private:
-   int water;
-   int battery;
-   string mode;
+    void updateIcon(Point oldPos, Point newPos) {
+        if (newPos.x > oldPos.x) icon = '>';
+        else if (newPos.x < oldPos.x) icon = '<';
+        else if (newPos.y > oldPos.y) icon = 'v';
+        else if (newPos.y < oldPos.y) icon = '^';
+    }
 };
 
-#endif // ROBOT_HPP
+#endif
