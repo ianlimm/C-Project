@@ -34,17 +34,17 @@ The main objectives of this project are to:
 
 ## Example Map
 
-'##########'
-'#   O    #'
-'# XX O   #'
-'#   O    #'
-'##########'
+`##########` <br>
+`#   O    #` <br>
+`# XX O   #` <br>
+`#   O    #` <br>
+`##########` <br>
 
-Legend:
-'#' = wall
-'X' = obstacle
-'O' = dirt
-[space] = empty walkable cell
+Legend: <br>
+- `#` = wall
+- `X` = obstacle
+- `O` = dirt
+- [space] = empty walkable cell
 
 - map cannot be empty
 - map must be rectangular
