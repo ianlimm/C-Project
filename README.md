@@ -70,13 +70,13 @@ g++ Main.cpp Simulator.cpp Map.cpp BCDStrategy.cpp FrontierStrategy.cpp NearestC
 
 ## Energy Usage by Robot Mode
 
-The simulator differentiates energy usage by assigning a specific energy cost to each robot mode. **Default Mode** is used for normal movement and cleaning on non-dirty cells.
-**High Power Mode** is used when cleaning dirt cells.
-**Navigation Mode** is used when the robot is travelling, repositioning, or returning to the dock.
+The simulator differentiates energy usage by assigning a specific energy cost to each robot mode. <br> **Default Mode** is used for normal movement and cleaning on non-dirty cells. <br>
+**High Power Mode** is used when cleaning dirt cells. <br>
+**Navigation Mode** is used when the robot is travelling, repositioning, or returning to the dock. <br>
 
-**Navigation Mode** : 1 Unit of Energy
-**Default Mode**    : 2 Units of Energy
-**High Power Mode** : 3 Units of Energy
+**Navigation Mode** : 1 Unit of Energy <br>
+**Default Mode**    : 2 Units of Energy <br>
+**High Power Mode** : 3 Units of Energy <br>
  
 Since each mode consumes a different amount of energy, the total energy used in a run reflects not just the distance travelled, but also the type of actions performed during cleaning. 
 
