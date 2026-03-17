@@ -34,16 +34,16 @@ The main objectives of this project are to:
 
 ## Example Map
 
-##########
-#   O    #
-# XX O   #
-#   O    #
-##########
+'##########'
+'#   O    #'
+'# XX O   #'
+'#   O    #'
+'##########'
 
 Legend:
-# = wall
-X = obstacle
-O = dirt
+'#' = wall
+'X' = obstacle
+'O' = dirt
 [space] = empty walkable cell
 
 - map cannot be empty
